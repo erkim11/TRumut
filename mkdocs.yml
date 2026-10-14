@@ -1,0 +1,66 @@
+site_name: trcall
+site_url: https://erkim11.github.io/trcall/
+repo_url: https://github.com/erkim11/trcall
+repo_name: erkim11/trcall
+edit_uri: ""
+
+theme:
+  name: material
+  font:
+    text: Roboto
+    code: Roboto Mono
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/header-link.js
+
+nav:
+  - Introduction: index.md
+  - Install: install.md
+  - Quick start: quick-start.md
+  - Usage:
+      - trcall allele: usage/allele.md
+      - trcall cancer: usage/cancer.md
+      - trcall trio: usage/trio.md
+      - trcall use-pon: usage/use-pon.md
+  - Output:
+      - trcall allele: output/allele.md
+      - trcall cancer: output/cancer.md
+      - trcall trio: output/trio.md
+      - trcall use-pon: output/use-pon.md
+  - Pre-built files: pre-built-files.md
+  - Advanced info:
+      - trcall prep-catalog: advanced/prep-catalog.md
+      - trcall build-pon: advanced/build-pon.md
+      - trcall mutual: advanced/mutual.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.magiclink
+  - toc:
+      permalink: true
+
+plugins:
+  - search

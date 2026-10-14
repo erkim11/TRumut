@@ -1,0 +1,31 @@
+/* Header / search bar color and the "trcall" wordmark in place of a logo. */
+:root,
+[data-md-color-scheme="default"],
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #faa84d;
+  --md-primary-fg-color--dark: #e8932f;
+  --md-primary-bg-color: #ffffff;          /* header text ("trcall", search, repo link): white */
+  --md-primary-bg-color--light: #ffffffb3;
+  --md-accent-fg-color: #e8932f;
+}
+
+/* No logo image: the site_name "trcall" sits where the logo would be. */
+.md-header__button.md-logo { display: none; }
+
+/* The "trcall" wordmark links to the Introduction page (see javascripts/header-link.js). */
+.md-header__home,
+.md-header__home:hover,
+.md-header__home:focus {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Parameter tables: full width, never wrap the argument names. */
+.md-typeset table:not([class]) { display: table; width: 100%; }
+.md-typeset table:not([class]) td:first-child code { white-space: nowrap; }
+
+/* Notes under column tables (the "*" footnotes): smaller and gray in both color schemes. */
+.md-typeset .table-note {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.8em;
+}
