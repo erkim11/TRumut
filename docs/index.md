@@ -1,8 +1,9 @@
 # Introduction
 
-TO-DO: add text here.
+trcall is an alignment-free tandem repeat caller for long reads.
 
-<!-- TODO: what trcall does, in a few paragraphs -->
+- Please refer to our preprint for why we built trcall, how it works, and what it finds.
+- Source code is available on [GitHub](https://github.com/erkim11/trcall).
 
 ## Workflow
 
