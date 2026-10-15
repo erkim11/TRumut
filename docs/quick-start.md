@@ -1,42 +1,42 @@
 # Quick start
 
-Here we have a test run with small simulated samples so you can try `trcall` before using your own data. Follow the steps below to confirm everything runs.
+Here we have a test run with small simulated samples so you can try `trumut` before using your own data. Follow the steps below to confirm everything runs.
 
 ## Get the data
 
-First, download the test data. It lives in the test folder of the trcall GitHub repository: [https://github.com/erkim11/trcall](https://github.com/erkim11/trcall)
+First, download the test data. It lives in the test folder of the TRumut GitHub repository: [https://github.com/erkim11/trumut](https://github.com/erkim11/trumut)
 
 ```sh
 # run this
-git clone https://github.com/erkim11/trcall.git
-cd trcall/test
+git clone https://github.com/erkim11/trumut.git
+cd trumut/test
 ```
 
 ## Run
 
 !!! warning
-    If you built trcall from source, use `../trcall` in place of `trcall` in commands below.
+    If you built TRumut from source, use `../trumut` in place of `trumut` in commands below.
 
 ```sh
 # call tandem repeat alleles in each sample
-trcall allele test_reads1.bam test_tr_catalog.tsv.gz reads1.alleles.tsv --input-type reads
-trcall allele test_reads2.bam test_tr_catalog.tsv.gz reads2.alleles.tsv --input-type reads
-trcall allele test_reads3.bam test_tr_catalog.tsv.gz reads3.alleles.tsv --input-type reads
+trumut allele test_reads1.bam test_tr_catalog.tsv.gz reads1.alleles.tsv --input-type reads
+trumut allele test_reads2.bam test_tr_catalog.tsv.gz reads2.alleles.tsv --input-type reads
+trumut allele test_reads3.bam test_tr_catalog.tsv.gz reads3.alleles.tsv --input-type reads
 ```
 
 ```sh
 # cancer: sample 3 plays the tumor, sample 1 its matched normal
-trcall cancer reads3.alleles.tsv reads1.alleles.tsv output_cancer.tsv --input-type reads
+trumut cancer reads3.alleles.tsv reads1.alleles.tsv output_cancer.tsv --input-type reads
 ```
 
 ```sh
 # trio: sample 3 plays the child, samples 1 and 2 the parents
-trcall trio reads3.alleles.tsv reads1.alleles.tsv reads2.alleles.tsv output_trio.tsv --input-type reads
+trumut trio reads3.alleles.tsv reads1.alleles.tsv reads2.alleles.tsv output_trio.tsv --input-type reads
 ```
 
 ```sh
 # use-pon: sample 1 against a small panel of normals
-trcall use-pon reads1.alleles.tsv test_pon.tsv output_pon.tsv --input-type reads
+trumut use-pon reads1.alleles.tsv test_pon.tsv output_pon.tsv --input-type reads
 ```
 
 Each command should finish in seconds.
@@ -82,8 +82,8 @@ Each `reads*.alleles.tsv` file has 29 lines. If your output matches, the install
 The same catalog works with unaligned reads and assemblies:
 
 ```sh
-trcall allele test_reads1.fa.gz test_tr_catalog.tsv.gz reads1.fa.alleles.tsv --input-type reads
-trcall allele test_assembly1.fa test_tr_catalog.tsv.gz asm1.alleles.tsv --input-type assembly --ploidy 2
+trumut allele test_reads1.fa.gz test_tr_catalog.tsv.gz reads1.fa.alleles.tsv --input-type reads
+trumut allele test_assembly1.fa test_tr_catalog.tsv.gz asm1.alleles.tsv --input-type assembly --ploidy 2
 ```
 
 Both give 29 lines.

@@ -8,7 +8,7 @@ ifeq ($(UNAME_S),Linux)
 LIBS += -lstdc++fs
 endif
 
-PROG = trcall
+PROG = trumut
 CMD  = allele prep-catalog build-pon use-pon cancer trio mutual
 SRC  = src/main.cpp $(CMD:%=src/cmd/%.cpp) src/lib/catalog.cpp src/lib/input.cpp
 HDR  = src/lib/catalog.h src/lib/input.h src/lib/calling.h

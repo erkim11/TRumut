@@ -1,17 +1,17 @@
-# trcall prep-catalog
+# trumut prep-catalog
 
 <!-- TODO: Add paragraph describing what this does -->
 
 ## Basic command
 
 ```sh
-trcall prep-catalog -i [tr_catalog.tsv] -k [uniqmers.tsv.gz] -s [uniqmer_seqs.tsv.gz] -o [catalog.tsv]
+trumut prep-catalog -i [tr_catalog.tsv] -k [uniqmers.tsv.gz] -s [uniqmer_seqs.tsv.gz] -o [catalog.tsv]
 ```
 
 - `-i`: your tandem repeat catalog, a TSV with a header naming `chr`, `tr_start`, `tr_end`, and `tr_motif`. Any other columns are carried through
 - `-k`: uniqmer positions in the reference genome, from [Pre-built files](../pre-built-files.md)
 - `-s`: uniqmer ID to sequence map, from [Pre-built files](../pre-built-files.md)
-- `-o`: output path of the uniqmer-annotated catalog, ready for `trcall allele`
+- `-o`: output path of the uniqmer-annotated catalog, ready for `trumut allele`
 
 ## More options
 
@@ -31,7 +31,7 @@ trcall prep-catalog -i [tr_catalog.tsv] -k [uniqmers.tsv.gz] -s [uniqmer_seqs.ts
 | `kmerA_seq`, `kmerB_seq` |  | the 31-mer sequence as the reference lists it |
 | `kmerA_strand`, `kmerB_strand` |  | reference strand of each uniqmer (`+`/`-`) |
 
-A repeat group at a chromosome edge has empty coordinates, ID and strand and `NA` sequence on the missing side. `trcall allele` skips such rows.
+A repeat group at a chromosome edge has empty coordinates, ID and strand and `NA` sequence on the missing side. `trumut allele` skips such rows.
 
 ## Example output
 

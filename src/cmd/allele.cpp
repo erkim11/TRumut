@@ -1,5 +1,5 @@
 /*
-allele.cpp -- `trcall allele`: calls tandem repeat alleles, their sequences, and their lengths
+allele.cpp -- `trumut allele`: calls tandem repeat alleles, their sequences, and their lengths
 */
 #include <zlib.h>
 #include <stdint.h>
@@ -1465,8 +1465,8 @@ static int make_shard_dir(const opt_t *o, char *out, size_t n)
 
     if (o->out_path && strcmp(o->out_path, "-") != 0) {
         const char *slash = strrchr(o->out_path, '/');
-        if (slash) snprintf(beside, sizeof beside, "%.*s/.trcall.XXXXXX", (int)(slash - o->out_path), o->out_path);
-        else       snprintf(beside, sizeof beside, ".trcall.XXXXXX");
+        if (slash) snprintf(beside, sizeof beside, "%.*s/.trumut.XXXXXX", (int)(slash - o->out_path), o->out_path);
+        else       snprintf(beside, sizeof beside, ".trumut.XXXXXX");
         if (try_mkdtemp(beside, out, n) == 0) return 0;
     }
 
@@ -1474,7 +1474,7 @@ static int make_shard_dir(const opt_t *o, char *out, size_t n)
     if (!td || !*td) td = "/tmp";
     size_t tl = strlen(td);
     char fallback[PATH_MAX];
-    snprintf(fallback, sizeof fallback, "%s%strcall.XXXXXX", td, (tl && td[tl-1] == '/') ? "" : "/");
+    snprintf(fallback, sizeof fallback, "%s%strumut.XXXXXX", td, (tl && td[tl-1] == '/') ? "" : "/");
     if (try_mkdtemp(fallback, out, n) == 0) return 0;
 
     fprintf(stderr, "[ERROR] cannot create a temporary directory (tried %s%s%s): %s\n",
@@ -1753,12 +1753,12 @@ static int run_sharded(const opt_t *o)
 static void allele_usage(FILE *fp)
 {
     fprintf(fp,
-    "Usage: trcall allele <input> <catalog> <output> --input-type reads|assembly [options]\n"
+    "Usage: trumut allele <input> <catalog> <output> --input-type reads|assembly [options]\n"
     "\n"
     "Positional:\n"
     "  <input>     alignments (SAM, SAM.gz, BAM, CRAM), an assembly (FASTA), or unaligned\n"
     "              reads (FASTQ, FASTA, unaligned SAM/BAM); a local file, stdin (-), or a URL\n"
-    "  <catalog>   uniqmer-annotated tandem repeat catalog (pre-built, or from trcall prep-catalog)\n"
+    "  <catalog>   uniqmer-annotated tandem repeat catalog (pre-built, or from trumut prep-catalog)\n"
     "  <output>    output path\n"
     "\n"
     "Required:\n"
@@ -1795,7 +1795,7 @@ static void allele_usage(FILE *fp)
     "\n"
     "  -h, --help            show this message\n"
     "\n"
-    "Documentation: https://erkim11.github.io/trcall/\n");
+    "Documentation: https://erkim11.github.io/trumut/\n");
 }
 
 static void reads_thread_plan(opt_t *o)

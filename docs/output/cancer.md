@@ -1,10 +1,10 @@
-# trcall cancer
+# trumut cancer
 
 ## Output columns
 
 | Column | Present when | Description |
 | --- | --- | --- |
-| `chr`, `region_start`, `region_end`, `kmerA_id`, `kmerB_id`, `loci` |  | copied from the `trcall allele` output |
+| `chr`, `region_start`, `region_end`, `kmerA_id`, `kmerB_id`, `loci` |  | copied from the `trumut allele` output |
 | `allele_length` |  | tumor allele length that is absent from the matched normal |
 | `offset` |  | tumor `allele_length` minus the nearest normal allele length |
 | `n_motif_kmers_ref_median` |  | median number of motif k-mers\* over normal reads at that nearest length |

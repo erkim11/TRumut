@@ -1,5 +1,5 @@
 /*
-mutual.cpp -- `trcall mutual`: pairwise deviation calling across N samples.
+mutual.cpp -- `trumut mutual`: pairwise deviation calling across N samples.
 */
 
 #include <algorithm>
@@ -481,16 +481,16 @@ int run_mutual(const std::vector<std::string>& paths, const std::string& out_pat
 void mutual_usage(std::ostream& os, const char* prog) {
   (void)prog;
   os <<
-    "Usage: trcall mutual output.tsv -i sample1.tsv -i sample2.tsv [-i sample3.tsv ...] [options]\n"
+    "Usage: trumut mutual output.tsv -i sample1.tsv -i sample2.tsv [-i sample3.tsv ...] [options]\n"
     "\n"
     "Positional:\n"
     "  output.tsv       output path\n"
     "\n"
     "Required:\n"
-    "  -i FILE                   trcall allele output; at least two must be given\n"
+    "  -i FILE                   trumut allele output; at least two must be given\n"
     "\n"
     "Options:\n"
-    "  -t chr1                   process specified chromosome only, spelled as in the trcall allele output [all]\n"
+    "  -t chr1                   process specified chromosome only, spelled as in the trumut allele output [all]\n"
     "  -j N                      chromosomes processed in parallel [3]\n"
     "  --clustering-thres N      allele lengths within N bp of each other collapse into one reported allele [3]\n"
     "  --n-reads-thres N         a read supports an allele if its length is within N bp of it [= clustering width]\n"
@@ -500,7 +500,7 @@ void mutual_usage(std::ostream& os, const char* prog) {
     "                            (directional), and allele counts per present/absent sample combination (venn)\n"
     "  -h, --help                show this message\n"
     "\n"
-    "Documentation: https://erkim11.github.io/trcall/\n";
+    "Documentation: https://erkim11.github.io/trumut/\n";
 }
 
 }  // namespace

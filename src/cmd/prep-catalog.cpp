@@ -1,5 +1,5 @@
 /*
-prep-catalog.cpp -- `trcall prep-catalog`: builds a uniqmer catalog for trcall allele from your own tandem repeat catalog.
+prep-catalog.cpp -- `trumut prep-catalog`: builds a uniqmer catalog for trumut allele from your own tandem repeat catalog.
 */
 
 #include <algorithm>
@@ -562,14 +562,14 @@ load_kmer_seqs(const std::string& path, const std::unordered_set<std::string>& n
 void usage(std::FILE* fp, const char* prog) {
   (void)prog;
   std::fprintf(fp,
-        "Usage: trcall prep-catalog -i tr_catalog.tsv -k uniqmers.tsv.gz -s uniqmer_seqs.tsv.gz -o catalog.tsv [options]\n"
+        "Usage: trumut prep-catalog -i tr_catalog.tsv -k uniqmers.tsv.gz -s uniqmer_seqs.tsv.gz -o catalog.tsv [options]\n"
         "\n"
         "Required:\n"
         "  -i, --input_catalog FILE  your tandem repeat catalog: a TSV with a header naming chr, tr_start, tr_end\n"
         "                            and tr_motif; any other columns are carried through\n"
         "  -k, --kmer_refs FILE      uniqmer positions in the reference genome (pre-built)\n"
         "  -s, --kmer_seqs FILE      uniqmer ID to sequence map (pre-built)\n"
-        "  -o, --output-path FILE    output path of the uniqmer-annotated catalog, ready for trcall allele\n"
+        "  -o, --output-path FILE    output path of the uniqmer-annotated catalog, ready for trumut allele\n"
         "\n"
         "Options:\n"
         "  -t, --target STR          process specified chromosome only; 1 and chr1 both match [all]\n"
@@ -577,7 +577,7 @@ void usage(std::FILE* fp, const char* prog) {
         "  --max-repeat-span N       drop catalog rows whose repeat spans more than N bp [15000]\n"
         "  -h, --help                show this message\n"
         "\n"
-        "Documentation: https://erkim11.github.io/trcall/\n");
+        "Documentation: https://erkim11.github.io/trumut/\n");
 }
 
 }
@@ -769,7 +769,7 @@ int prep_catalog_main(int argc, char** argv) {
     for (auto& p : pieces) std::remove(p.c_str());
 
     if (rows_na)
-      std::fprintf(stderr, "[WARNING] %llu row(s) have an NA sequence; trcall allele skips them\n", (unsigned long long)rows_na);
+      std::fprintf(stderr, "[WARNING] %llu row(s) have an NA sequence; trumut allele skips them\n", (unsigned long long)rows_na);
     std::fprintf(stderr, "[INFO] wrote %llu rows to %s\n",
                  (unsigned long long)rows_out, out_path);
     return 0;

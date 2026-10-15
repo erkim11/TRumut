@@ -223,7 +223,7 @@
   <rect class="cls-39" x="695.58" y="241.51" width="54.5" height="35.92"/>
   <rect class="cls-39" x="618.37" y="241.51" width="32.92" height="35.92"/>
   <rect class="cls-18" x="392.93" y="338.84" width="169.82" height="137.9"/>
-  <text class="cls-5" transform="translate(450.03 366.93)"><tspan x="0" y="0">trcall trio</tspan></text>
+  <text class="cls-5" transform="translate(450.03 366.93)"><tspan x="0" y="0">trumut trio</tspan></text>
   <g>
     <path class="cls-11" d="M433.84,378.36h2.46c.56,0,.98.04,1.27.13.39.12.73.32,1.01.61.28.29.49.66.64,1.08.15.43.22.95.22,1.58,0,.55-.07,1.02-.2,1.42-.17.49-.41.88-.72,1.18-.23.23-.55.41-.95.53-.3.09-.7.14-1.19.14h-2.54v-6.68ZM435.19,379.49v4.42h1.01c.38,0,.65-.02.82-.06.22-.05.4-.15.54-.28s.26-.35.35-.64c.09-.3.14-.71.14-1.22s-.04-.91-.14-1.19c-.09-.28-.22-.49-.38-.65-.16-.16-.37-.26-.62-.31-.19-.04-.56-.06-1.11-.06h-.61Z"/>
     <path class="cls-11" d="M443.38,383.5l1.28.21c-.16.47-.42.82-.78,1.07-.35.25-.8.37-1.33.37-.84,0-1.46-.28-1.87-.83-.32-.44-.48-1-.48-1.67,0-.8.21-1.43.63-1.88s.95-.68,1.59-.68c.72,0,1.29.24,1.7.71.42.48.62,1.2.6,2.18h-3.21c0,.38.11.67.31.89.2.21.44.32.74.32.2,0,.37-.05.51-.16s.24-.29.31-.53ZM443.45,382.2c0-.37-.11-.65-.29-.85-.18-.19-.4-.29-.67-.29-.28,0-.51.1-.69.31s-.27.48-.27.83h1.91Z"/>
@@ -275,7 +275,7 @@
   <circle class="cls-2" cx="496.48" cy="420.58" r="10.28"/>
   <circle class="cls-1" cx="477.9" cy="452.04" r="10.28"/>
   <rect class="cls-18" x="578.22" y="338.84" width="196.63" height="137.9"/>
-  <text class="cls-5" transform="translate(633.92 366.93)"><tspan x="0" y="0">trcall use-pon</tspan></text>
+  <text class="cls-5" transform="translate(633.92 366.93)"><tspan x="0" y="0">trumut use-pon</tspan></text>
   <text class="cls-6" transform="translate(605.45 385.04)"><tspan x="0" y="0">Repeat mutations in normal cells</tspan><tspan x="-9.07" y="11.19">and cancers with no matched normal</tspan></text>
   <circle class="cls-32" cx="624.89" cy="439.4" r="10.38"/>
   <circle class="cls-2" cx="628.08" cy="435.99" r="4.58"/>
@@ -304,9 +304,9 @@
   <circle class="cls-43" cx="323.4" cy="435.09" r="15.43"/>
   <circle class="cls-42" cx="321.85" cy="439.92" r="6.81"/>
   <text class="cls-12" transform="translate(289.57 435.3)"><tspan x="0" y="0">vs</tspan></text>
-  <text class="cls-5" transform="translate(254.16 366.93)"><tspan x="0" y="0">trcall cancer</tspan></text>
+  <text class="cls-5" transform="translate(254.16 366.93)"><tspan x="0" y="0">trumut cancer</tspan></text>
   <rect class="cls-18" x="288.48" y="117.18" width="193.42" height="137.9"/>
-  <text class="cls-5" transform="translate(351.59 145.27)"><tspan x="0" y="0">trcall allele</tspan></text>
+  <text class="cls-5" transform="translate(351.59 145.27)"><tspan x="0" y="0">trumut allele</tspan></text>
   <line class="cls-24" x1="311.36" y1="189.84" x2="459.03" y2="189.84"/>
   <line class="cls-24" x1="311.36" y1="231.85" x2="459.03" y2="231.85"/>
   <line class="cls-24" x1="311.36" y1="210.77" x2="459.03" y2="210.77"/>
@@ -323,7 +323,7 @@
   <line class="cls-25" x1="396.53" y1="210.77" x2="427.07" y2="210.77"/>
   <line class="cls-25" x1="355.53" y1="231.85" x2="411.8" y2="231.85"/>
   <text class="cls-6" transform="translate(306.91 163.49)"><tspan x="0" y="0">Call repeat alleles and their lengths</tspan></text>
-  <text class="cls-7" transform="translate(631.2 204.63)"><tspan x="0" y="0">trcall build-pon</tspan></text>
+  <text class="cls-7" transform="translate(631.2 204.63)"><tspan x="0" y="0">trumut build-pon</tspan></text>
   <text class="cls-4" transform="translate(609.98 222.74)"><tspan x="0" y="0">Build custom panel of normals</tspan></text>
   <line class="cls-23" x1="600.36" y1="277.57" x2="669.44" y2="277.57"/>
   <line class="cls-20" x1="686.84" y1="277.57" x2="755.92" y2="277.57"/>
@@ -354,7 +354,7 @@
       <line class="cls-26" x1="692.79" y1="31.07" x2="692.79" y2="156.59"/>
     </g>
   </g>
-  <text class="cls-7" transform="translate(538.12 51.74)"><tspan x="0" y="0">trcall prep-catalog</tspan></text>
+  <text class="cls-7" transform="translate(538.12 51.74)"><tspan x="0" y="0">trumut prep-catalog</tspan></text>
   <text class="cls-4" transform="translate(505.01 69.95)"><tspan x="0" y="0">Curate custom catalog of tandem repeats</tspan></text>
   <rect class="cls-40" x="520.44" y="85.4" width="148.06" height="58.29"/>
   <text class="cls-13" transform="translate(527.81 100.62)"><tspan x="0" y="0">chr1 8946572 8948256 CAG</tspan></text>
@@ -395,7 +395,7 @@
       <line class="cls-26" x1="192.17" y1="346.26" x2="192.17" y2="471.78"/>
     </g>
   </g>
-  <text class="cls-7" transform="translate(68.61 366.93)"><tspan x="0" y="0">trcall mutual</tspan></text>
+  <text class="cls-7" transform="translate(68.61 366.93)"><tspan x="0" y="0">trumut mutual</tspan></text>
   <text class="cls-4" transform="translate(46.09 385.14)"><tspan x="0" y="0">Symmetrical comparison of</tspan><tspan x="-4.69" y="11.19">repeat alleles across samples</tspan></text>
   <path class="cls-33" d="M117.97,419.26c-5.01,1.37-8.97,5.31-10.37,10.32-4.83,2.72-8.1,7.89-8.1,13.83,0,4.95,2.27,9.37,5.82,12.28-1.58.35-3.22.53-4.91.53-12.51,0-22.65-10.14-22.65-22.65s10.14-22.65,22.65-22.65c7.08,0,13.4,3.25,17.55,8.33Z"/>
   <path class="cls-3" d="M122.68,429.35c-2.19-1.14-4.67-1.79-7.32-1.79-2.81,0-5.46.74-7.75,2.02,1.4-5.01,5.35-8.95,10.37-10.32,2.34,2.86,3.99,6.31,4.7,10.09Z"/>

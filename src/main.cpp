@@ -1,12 +1,12 @@
 /*
-main.cpp: `trcall` subcommand dispatcher.
+main.cpp: `trumut` subcommand dispatcher.
 */
 
 #include <stdio.h>
 #include <string.h>
 
-#ifndef TRCALL_VERSION
-#define TRCALL_VERSION "0.1.0"
+#ifndef TRUMUT_VERSION
+#define TRUMUT_VERSION "0.1.0"
 #endif
 
 int allele_main(int argc, char *argv[]);
@@ -20,9 +20,9 @@ int mutual_main(int argc, char *argv[]);
 static void usage(FILE *fp)
 {
     fprintf(fp,
-"trcall %s -- tandem repeat allele calling\n"
+"trumut %s -- tandem repeat allele calling\n"
 "\n"
-"Usage: trcall <command> [options]\n"
+"Usage: trumut <command> [options]\n"
 "\n"
 "Main workflow:\n"
 "  allele        call tandem repeat alleles per sample; input to the three below\n"
@@ -35,12 +35,12 @@ static void usage(FILE *fp)
 "  build-pon     build a panel of normals for use-pon from your own samples (a pre-built one exists)\n"
 "  mutual        compare two or more samples symmetrically: alleles present in one but absent from another\n"
 "\n"
-"  trcall <command> -h   options of one command\n"
+"  trumut <command> -h   options of one command\n"
 "  -h, --help            show this message\n"
 "  -v, --version         show the version\n"
 "\n"
-"Documentation: https://erkim11.github.io/trcall/\n",
-            TRCALL_VERSION);
+"Documentation: https://erkim11.github.io/trumut/\n",
+            TRUMUT_VERSION);
 }
 
 int main(int argc, char *argv[])
@@ -54,12 +54,12 @@ int main(int argc, char *argv[])
         return 0;
     }
     if (strcmp(cmd, "-v") == 0 || strcmp(cmd, "--version") == 0) {
-        printf("trcall %s\n", TRCALL_VERSION);
+        printf("trumut %s\n", TRUMUT_VERSION);
         return 0;
     }
 
     char progname[64];
-    snprintf(progname, sizeof progname, "trcall %s", cmd);
+    snprintf(progname, sizeof progname, "trumut %s", cmd);
     char *saved = argv[1];
     argv[1] = progname;
 

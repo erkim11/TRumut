@@ -34,7 +34,7 @@ calling.h: mutation calling of a test sample against references
 
 static const size_t MIN_UNIQUE_READS_PER_INPUT = 10;
 
-// --input-type, shared by cancer/trio/use-pon and matching trcall allele
+// --input-type, shared by cancer/trio/use-pon and matching trumut allele
 //   0 = not given, 1 = reads, -1 = assembly
 template <class T>
 inline bool parse_int_arg(const char* flag, const char* s, T& out) {

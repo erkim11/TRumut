@@ -1,10 +1,10 @@
-# trcall use-pon
+# trumut use-pon
 
 ## Output columns
 
 | Column | Present when | Description |
 | --- | --- | --- |
-| `chr`, `region_start`, `region_end`, `kmerA_id`, `kmerB_id`, `loci` |  | copied from the `trcall allele` output |
+| `chr`, `region_start`, `region_end`, `kmerA_id`, `kmerB_id`, `loci` |  | copied from the `trumut allele` output |
 | `allele_length` |  | sample allele length that is not within the panel range |
 | `offset` |  | sample `allele_length` minus the closer panel bound (`range_min` or `range_max`); negative below the range, positive above |
 | `n_motif_kmers_ref_median` |  | the panel's `range_min_n_motif_kmers` or `range_max_n_motif_kmers` at that closer bound; `nan` when the panel value is `NA` |

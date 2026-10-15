@@ -1,18 +1,18 @@
-/* Header / search bar color and the "trcall" wordmark in place of a logo. */
+/* Header / search bar color and the "TRumut" wordmark in place of a logo. */
 :root,
 [data-md-color-scheme="default"],
 [data-md-color-scheme="slate"] {
   --md-primary-fg-color: #faa84d;
   --md-primary-fg-color--dark: #e8932f;
-  --md-primary-bg-color: #ffffff;          /* header text ("trcall", search, repo link): white */
+  --md-primary-bg-color: #ffffff;          /* header text ("TRumut", search, repo link): white */
   --md-primary-bg-color--light: #ffffffb3;
   --md-accent-fg-color: #e8932f;
 }
 
-/* No logo image: the site_name "trcall" sits where the logo would be. */
+/* No logo image: the site_name "TRumut" sits where the logo would be. */
 .md-header__button.md-logo { display: none; }
 
-/* The "trcall" wordmark links to the Introduction page (see javascripts/header-link.js). */
+/* The "TRumut" wordmark links to the Introduction page (see javascripts/header-link.js). */
 .md-header__home,
 .md-header__home:hover,
 .md-header__home:focus {

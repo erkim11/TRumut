@@ -1,15 +1,15 @@
-# trcall build-pon
+# trumut build-pon
 
 <!-- TODO: Add paragraph describing what this does -->
 
 ## Basic command
 
 ```sh
-trcall build-pon [alleles_dir/] [pon.tsv] --input-type reads
-trcall build-pon [alleles_dir/] [pon.tsv] --input-type assembly --ploidy 2
+trumut build-pon [alleles_dir/] [pon.tsv] --input-type reads
+trumut build-pon [alleles_dir/] [pon.tsv] --input-type assembly --ploidy 2
 ```
 
-- `[alleles_dir/]`: directory holding one `trcall allele` output per normal sample, named `*.alleles.tsv`
+- `[alleles_dir/]`: directory holding one `trumut allele` output per normal sample, named `*.alleles.tsv`
 - `[pon.tsv]`: output path of the panel of normals
 - <code>--input-type reads&#124;assembly</code>: `reads` for sequencing reads. `assembly` for assembled contigs
 - `--ploidy N`: required with `assembly`. Number of haplotype contigs per locus (e.g., `1` for a haploid assembly, `2` for diploid)
@@ -19,11 +19,11 @@ trcall build-pon [alleles_dir/] [pon.tsv] --input-type assembly --ploidy 2
 Digesting each allele output first is optional. A digest is much smaller in file size and merges to an identical panel, so it pays off when the allele outputs live on slow storage or the panel is rebuilt often.
 
 ```sh
-trcall build-pon --digest sample1.alleles.tsv sample1.pon-digest.tsv   # one sample
-trcall build-pon --digest alleles_dir/   # every *.alleles.tsv in the directory
+trumut build-pon --digest sample1.alleles.tsv sample1.pon-digest.tsv   # one sample
+trumut build-pon --digest alleles_dir/   # every *.alleles.tsv in the directory
 
 # merge as before
-trcall build-pon alleles_dir/ pon.tsv --input-type reads
+trumut build-pon alleles_dir/ pon.tsv --input-type reads
 ```
 
 - `sample1.pon-digest.tsv`: one digest per sample, written next to the allele output or into an optional output directory given as a third argument
@@ -47,7 +47,7 @@ trcall build-pon alleles_dir/ pon.tsv --input-type reads
 
 | Column | Present when | Description |
 | --- | --- | --- |
-| `chr`, `kmerA_id`, `kmerB_id` |  | copied from the `trcall allele` output |
+| `chr`, `kmerA_id`, `kmerB_id` |  | copied from the `trumut allele` output |
 | `range_min`, `range_max` |  | smallest / largest allele length carried by at least `--distance-percent-support` of the covering samples |
 | `range_min_n_motif_kmers`, `range_max_n_motif_kmers` |  | median across samples of each sample's median number of motif k-mers\* at that length |
 
@@ -55,7 +55,7 @@ trcall build-pon alleles_dir/ pon.tsv --input-type reads
 
 | Column | Present when | Description |
 | --- | --- | --- |
-| `chr`, `kmerA_id`, `kmerB_id` |  | copied from the `trcall allele` output |
+| `chr`, `kmerA_id`, `kmerB_id` |  | copied from the `trumut allele` output |
 | `n_reads` |  | number of distinct reads at the pair in that sample |
 | `allele_lengths` |  | distinct allele lengths (list); unlike the allele output, one item per distinct length, not per read |
 | `motif_kmers` |  | median number of motif k-mers\* per allele length (list) |

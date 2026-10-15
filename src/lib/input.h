@@ -1,5 +1,5 @@
 /*
-input.h: trcall input readers.
+input.h: trumut input readers.
 */
 #ifndef INPUT_H
 #define INPUT_H

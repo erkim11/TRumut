@@ -1,5 +1,5 @@
 /*
-trio.cpp -- `trcall trio`: reports alleles in a child that are absent from parents
+trio.cpp -- `trumut trio`: reports alleles in a child that are absent from parents
 */
 
 #include <iostream>
@@ -11,11 +11,11 @@ trio.cpp -- `trcall trio`: reports alleles in a child that are absent from paren
 static void trio_usage(std::ostream& os, const char* prog) {
   (void)prog;
   os <<
-    "Usage: trcall trio child.tsv parent1.tsv [parent2.tsv ...] output.tsv --input-type reads|assembly [options]\n"
+    "Usage: trumut trio child.tsv parent1.tsv [parent2.tsv ...] output.tsv --input-type reads|assembly [options]\n"
     "\n"
     "Positional:\n"
-    "  child.tsv        child output from trcall allele\n"
-    "  parent*.tsv      parent output from trcall allele; one or more files\n"
+    "  child.tsv        child output from trumut allele\n"
+    "  parent*.tsv      parent output from trumut allele; one or more files\n"
     "  output.tsv       output path\n"
     "\n"
     "Required:\n"
@@ -23,7 +23,7 @@ static void trio_usage(std::ostream& os, const char* prog) {
     "  --ploidy N                required with assembly: haplotype contigs per locus (1 haploid, 2 diploid)\n"
     "\n"
     "Options:\n"
-    "  -t chr1                   process specified chromosome only, spelled as in the trcall allele output [all]\n"
+    "  -t chr1                   process specified chromosome only, spelled as in the trumut allele output [all]\n"
     "  -j N                      chromosomes processed in parallel [3]\n"
     "  --clustering-thres N      allele lengths within N bp of each other collapse into one reported allele [11]\n"
     "  --n-reads-thres N         a read supports an allele if its length is within N bp of it [9]\n"
@@ -37,7 +37,7 @@ static void trio_usage(std::ostream& os, const char* prog) {
     "  --min-reads-per-sample N  skip a locus unless child and parents each have at least N reads / contigs there [10; for assemblies, set by --ploidy]\n"
     "  -h, --help                show this message\n"
     "\n"
-    "Documentation: https://erkim11.github.io/trcall/\n";
+    "Documentation: https://erkim11.github.io/trumut/\n";
 }
 
 int trio_main(int argc, char** argv) {

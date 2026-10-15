@@ -1,5 +1,5 @@
 /*
-build-pon.cpp -- `trcall build-pon`: builds a panel of normals for `trcall allele` from your own tandem repeat catalog
+build-pon.cpp -- `trumut build-pon`: builds a panel of normals for `trumut allele` from your own tandem repeat catalog
 */
 
 #include <fcntl.h>
@@ -188,7 +188,7 @@ Layout classify_header(std::string_view line, const std::string& path) {
   for (const auto& [idx, name] : need)
     if (idx < 0)
       throw std::runtime_error(path + ": header is missing the '" + name + "' column. Is this a "
-                               "current trcall allele output or a build-pon digest?");
+                               "current trumut allele output or a build-pon digest?");
   L.n_cols = 1 + std::max({L.chr, L.kmer_a, L.kmer_b, L.distance, L.motif_count,
                            L.n_reads, L.distances, L.motif});
   return L;
@@ -281,7 +281,7 @@ public:
         throw std::runtime_error(path_ + ": chromosome blocks are not in karyotype "
                                  "order (" + blocks.back().chr.name + " then " + k.name +
                                  "). This tool requires the unmodified output of "
-                                 "trcall allele on a BAM/CRAM input.");
+                                 "trumut allele on a BAM/CRAM input.");
       int64_t lo = pos + 1, hi = size_;
       while (lo < hi) {
         int64_t mid = lo + (hi - lo) / 2;
@@ -451,7 +451,7 @@ struct Source {
         throw std::runtime_error(path + ": found a " + std::string(f[col_chr]) +
                                  " row inside the " + expected_chr + " block: rows are "
                                  "not in allele's alignment-input sort order. This tool "
-                                 "requires the unmodified output of trcall allele on a "
+                                 "requires the unmodified output of trumut allele on a "
                                  "BAM/CRAM input, or a build-pon digest of one.");
 
       if (digest) {
@@ -465,11 +465,11 @@ struct Source {
         throw std::runtime_error(path + ": " + expected_chr + " row " + std::string(k.kA) +
                                  " sorts before the start of its own kmerA_id slice (" +
                                  bound_lo_ + "): rows are not in allele's sort order. This "
-                                 "tool requires the unmodified output of trcall allele.");
+                                 "tool requires the unmodified output of trumut allele.");
       if (has_prev && k < pending_key)
         throw std::runtime_error(path + ": " + expected_chr + " rows are not in "
                                  "allele's sort order (kmerA_id, kmerB_id). This tool "
-                                 "requires the unmodified output of trcall allele.");
+                                 "requires the unmodified output of trumut allele.");
       has_prev = true;
 
       pending_key = k;
@@ -483,7 +483,7 @@ struct Source {
                                std::string(pending_key.kA) + " sorts at or past the end of "
                                "its own kmerA_id slice (" + bound_hi_ + "): rows are not in "
                                "allele's sort order. This tool requires the unmodified "
-                               "output of trcall allele.");
+                               "output of trumut allele.");
     return false;
   }
 
@@ -813,7 +813,7 @@ DigestStats digest_file(const std::string& in, const std::string& out) {
     std::fclose(fo);
     std::remove(tmp.c_str());
     return std::runtime_error(in + ": " + what + ". This tool requires the unmodified "
-                              "output of trcall allele on a BAM/CRAM input.");
+                              "output of trumut allele on a BAM/CRAM input.");
   };
 
   while (rdr.next_line(line)) {
@@ -997,12 +997,12 @@ int digest_main(const std::vector<const char*>& pos, const std::string& suffix, 
 void usage(std::FILE* fp, const char* prog) {
   (void)prog;
   std::fprintf(fp,
-        "Usage: trcall build-pon alleles_dir/ pon.tsv --input-type reads|assembly [options]\n"
-        "       trcall build-pon --digest sample.alleles.tsv sample.pon-digest.tsv\n"
-        "       trcall build-pon --digest alleles_dir/ [out_dir/]\n"
+        "Usage: trumut build-pon alleles_dir/ pon.tsv --input-type reads|assembly [options]\n"
+        "       trumut build-pon --digest sample.alleles.tsv sample.pon-digest.tsv\n"
+        "       trumut build-pon --digest alleles_dir/ [out_dir/]\n"
         "\n"
         "Positional:\n"
-        "  alleles_dir/     directory holding one trcall allele output per normal sample, named *.alleles.tsv\n"
+        "  alleles_dir/     directory holding one trumut allele output per normal sample, named *.alleles.tsv\n"
         "  pon.tsv          output path of the panel of normals\n"
         "\n"
         "Required (merge):\n"
@@ -1022,7 +1022,7 @@ void usage(std::FILE* fp, const char* prog) {
         "\n"
         "Output columns: chr kmerA_id kmerB_id range_min range_max range_min_n_motif_kmers range_max_n_motif_kmers\n"
         "\n"
-        "Documentation: https://erkim11.github.io/trcall/\n");
+        "Documentation: https://erkim11.github.io/trumut/\n");
 }
 
 }  // namespace

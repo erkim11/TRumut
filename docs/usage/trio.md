@@ -1,16 +1,16 @@
-# trcall trio
+# trumut trio
 
 A worked example on simulated data is under [Quick start](../quick-start.md).
 
 ## Basic command
 
 ```sh
-trcall trio [child.tsv] [parent1.tsv] [parent2.tsv ...] [output.tsv] --input-type reads
-trcall trio [child.tsv] [parent1.tsv] [parent2.tsv ...] [output.tsv] --input-type assembly --ploidy [2]
+trumut trio [child.tsv] [parent1.tsv] [parent2.tsv ...] [output.tsv] --input-type reads
+trumut trio [child.tsv] [parent1.tsv] [parent2.tsv ...] [output.tsv] --input-type assembly --ploidy [2]
 ```
 
-- `[child.tsv]`: child output from `trcall allele`
-- `[parent1.tsv] [parent2.tsv ...]`: parent output from `trcall allele`. One or more files
+- `[child.tsv]`: child output from `trumut allele`
+- `[parent1.tsv] [parent2.tsv ...]`: parent output from `trumut allele`. One or more files
 - `[output.tsv]`: output path
 - <code>--input-type reads&#124;assembly</code>: `reads` for sequencing reads. `assembly` for assembled contigs
 - `--ploidy N`: required with `assembly`. Number of haplotype contigs per locus (e.g., `1` for a haploid assembly, `2` for diploid)
@@ -19,7 +19,7 @@ trcall trio [child.tsv] [parent1.tsv] [parent2.tsv ...] [output.tsv] --input-typ
 
 | Argument | Default | Description |
 | --- | --- | --- |
-| `-t chr1` | all chromosomes | process specified chromosome only, spelled as in the `trcall allele` output |
+| `-t chr1` | all chromosomes | process specified chromosome only, spelled as in the `trumut allele` output |
 | `-j N` | 3 | chromosomes processed in parallel |
 | `--clustering-thres N` | 11 | allele lengths within N bp of each other collapse into one reported allele |
 | `--n-reads-thres N` | 9 | a read supports an allele if its length is within N bp of it |

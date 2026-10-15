@@ -1,5 +1,5 @@
 /*
-use-pon.cpp -- `trcall use-pon`: reports alleles outside the range seen in a panel of normals
+use-pon.cpp -- `trumut use-pon`: reports alleles outside the range seen in a panel of normals
 */
 
 #include <cmath>
@@ -63,7 +63,7 @@ static bool parse_i32(std::string_view sv, int32_t* out) {
   return true;
 }
 
-// load the trcall build-pon table.
+// load the trumut build-pon table.
 static PonMap load_pon(const char* path) {
   LineReader in;   // plain or gzipped
   if (!in.open(path)) die(std::string("cannot open PON file: ") + path);
@@ -89,7 +89,7 @@ static PonMap load_pon(const char* path) {
   }
   if (col_kmerA   < 0) die("PON missing column: kmerA_id");
   if (col_kmerB   < 0) die("PON missing column: kmerB_id");
-  if (col_min_sup < 0) die("PON missing column: range_min (is this a trcall build-pon output?)");
+  if (col_min_sup < 0) die("PON missing column: range_min (is this a trumut build-pon output?)");
   if (col_max_sup < 0) die("PON missing column: range_max");
   if (col_med_min < 0) die("PON missing column: range_min_n_motif_kmers");
   if (col_med_max < 0) die("PON missing column: range_max_n_motif_kmers");
@@ -227,7 +227,7 @@ static void call_mosaic(const char* tumor_path, const PonMap& pon,
                         int32_t clustering_thres, int32_t n_reads_thres,
                         int32_t min_offset,
                         size_t min_reads, const RowFilters& filters, bool assembly) {
-  LineReader in;   // plain or gzipped (trcall allele -o *.gz)
+  LineReader in;   // plain or gzipped (trumut allele -o *.gz)
   if (!in.open(tumor_path)) die(std::string("cannot open tumor file: ") + tumor_path);
 
   const bool to_stdout = !output_path || std::string_view(output_path) == "-";
@@ -322,11 +322,11 @@ static void call_mosaic(const char* tumor_path, const PonMap& pon,
 
 static void use_pon_usage(std::ostream& os) {
   os <<
-    "Usage: trcall use-pon sample.tsv pon.tsv output.tsv --input-type reads|assembly [options]\n"
+    "Usage: trumut use-pon sample.tsv pon.tsv output.tsv --input-type reads|assembly [options]\n"
     "\n"
     "Positional:\n"
-    "  sample.tsv       sample output from trcall allele\n"
-    "  pon.tsv          panel of normals (pre-built, or from trcall build-pon)\n"
+    "  sample.tsv       sample output from trumut allele\n"
+    "  pon.tsv          panel of normals (pre-built, or from trumut build-pon)\n"
     "  output.tsv       output path\n"
     "\n"
     "Required:\n"
@@ -334,7 +334,7 @@ static void use_pon_usage(std::ostream& os) {
     "  --ploidy N                required with assembly: haplotype contigs per locus (1 haploid, 2 diploid)\n"
     "\n"
     "Options:\n"
-    "  -t, --target STR          process specified chromosome only, spelled as in the trcall allele output [all]\n"
+    "  -t, --target STR          process specified chromosome only, spelled as in the trumut allele output [all]\n"
     "  --clustering-thres N      allele lengths within N bp of each other collapse into one reported allele [11]\n"
     "  --n-reads-thres N         a read supports an allele if its length is within N bp of it [9]\n"
     "  --min-offset N            report an allele only if it is at least N bp from the panel range [clustering width + 1]\n"
@@ -345,7 +345,7 @@ static void use_pon_usage(std::ostream& os) {
     "  --min-reads-per-sample N  skip a locus unless the sample has at least N reads / contigs there [10; for assemblies, set by --ploidy]\n"
     "  -h, --help                show this message\n"
     "\n"
-    "Documentation: https://erkim11.github.io/trcall/\n";
+    "Documentation: https://erkim11.github.io/trumut/\n";
 }
 
 int use_pon_main(int argc, char* argv[]) {

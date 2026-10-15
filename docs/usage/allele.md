@@ -1,12 +1,12 @@
-# trcall allele
+# trumut allele
 
 A worked example on simulated data is under [Quick start](../quick-start.md).
 
 ## Basic command
 
 ```sh
-trcall allele [reads.bam] [catalog.tsv] [output.tsv] --input-type reads
-trcall allele [assembly.fasta] [catalog.tsv] [output.tsv] --input-type assembly --ploidy [2]
+trumut allele [reads.bam] [catalog.tsv] [output.tsv] --input-type reads
+trumut allele [assembly.fasta] [catalog.tsv] [output.tsv] --input-type assembly --ploidy [2]
 ```
 
 - `input (reads.bam/assembly.fasta)`:
@@ -19,7 +19,7 @@ trcall allele [assembly.fasta] [catalog.tsv] [output.tsv] --input-type assembly 
 
     - can be given as local file, stdin, or a URL
 
-- `[catalog.tsv]`: uniqmer-annotated tandem repeat catalog from [Pre-built files](../pre-built-files.md) or `trcall prep-catalog`
+- `[catalog.tsv]`: uniqmer-annotated tandem repeat catalog from [Pre-built files](../pre-built-files.md) or `trumut prep-catalog`
 - `[output.tsv]`: output path
 - <code>--input-type reads&#124;assembly</code>: `reads` for sequencing reads. `assembly` for assembled contigs
 - `--ploidy N`: required with `assembly`. Number of haplotype contigs per locus (e.g., `1` for a haploid assembly, `2` for diploid)

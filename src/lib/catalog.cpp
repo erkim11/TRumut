@@ -356,7 +356,7 @@ int read_pairs_file(const char *pairs_path, const char *chr_filter,
             for (int i = 0; i < nh; ++i)
                 if (strcmp(fields[i], names[c]) == 0) { col[c] = i; break; }
             if (col[c] < 0) {
-                fprintf(stderr, "[ERROR] %s: catalog header lacks column '%s' (rebuild with trcall prep-catalog)\n",
+                fprintf(stderr, "[ERROR] %s: catalog header lacks column '%s' (rebuild with trumut prep-catalog)\n",
                         pairs_path, names[c]);
                 free(hdr); key2i_destroy(pair_index); free(str.s); ks_destroy(ks); gzclose(fp);
                 return -2;

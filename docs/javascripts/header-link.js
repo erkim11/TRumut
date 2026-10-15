@@ -1,4 +1,4 @@
-/* Make the "trcall" site title in the header a link to the Introduction page.
+/* Make the "TRumut" site title in the header a link to the Introduction page.
    Material renders the title as plain text; the hidden logo anchor already
    carries the correct (relative) home URL, so we reuse it. */
 (function () {

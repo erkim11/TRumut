@@ -1,21 +1,21 @@
-# trcall mutual
+# trumut mutual
 
 <!-- TODO: Add paragraph describing what this does -->
 
 ## Basic command
 
 ```sh
-trcall mutual [output.tsv] -i [sample1.tsv] -i [sample2.tsv] ...
+trumut mutual [output.tsv] -i [sample1.tsv] -i [sample2.tsv] ...
 ```
 
 - `[output.tsv]`: output path
-- `-i`: `trcall allele` output. At least two must be given
+- `-i`: `trumut allele` output. At least two must be given
 
 ## More options
 
 | Argument | Default | Description |
 | --- | --- | --- |
-| `-t chr1` | all | process specified chromosome only, spelled as in the `trcall allele` output |
+| `-t chr1` | all | process specified chromosome only, spelled as in the `trumut allele` output |
 | `-j N` | 3 | chromosomes processed in parallel |
 | `--clustering-thres N` | 3 | allele lengths within N bp of each other collapse into one reported allele |
 | `--n-reads-thres N` | = clustering width | a read supports an allele if its length is within N bp of it |
@@ -27,7 +27,7 @@ trcall mutual [output.tsv] -i [sample1.tsv] -i [sample2.tsv] ...
 
 | Column | Present when | Description |
 | --- | --- | --- |
-| `chr`, `region_start`, `region_end`, `kmerA_id`, `kmerB_id`, `loci` |  | copied from the `trcall allele` output |
+| `chr`, `region_start`, `region_end`, `kmerA_id`, `kmerB_id`, `loci` |  | copied from the `trumut allele` output |
 | `test` |  | label (file basename) of the input the allele was found in |
 | `allele_length` |  | allele length in the `test` sample |
 | `n_reads` |  | number of `test` sample reads at exactly `allele_length` |
@@ -46,7 +46,7 @@ trcall mutual [output.tsv] -i [sample1.tsv] -i [sample2.tsv] ...
 
 **Summary file**
 
-**Directional** counts output rows, grouped by the `test` sample and the set of samples it deviates from. The row with `test = s1.tsv` and `refs_deviating = s3.tsv` is exactly what `trcall cancer s1.tsv s3.tsv` would report. Because every row has one `test` sample, an allele shared by s1 and s2 but absent from s3 appears twice: once with s1 as `test` and once with s2 as `test`.
+**Directional** counts output rows, grouped by the `test` sample and the set of samples it deviates from. The row with `test = s1.tsv` and `refs_deviating = s3.tsv` is exactly what `trumut cancer s1.tsv s3.tsv` would report. Because every row has one `test` sample, an allele shared by s1 and s2 but absent from s3 appears twice: once with s1 as `test` and once with s2 as `test`.
 
 | section | test | refs_deviating | n_rows | n_loci |
 | --- | --- | --- | --- | --- |

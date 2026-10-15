@@ -17,7 +17,7 @@ wget https://zenodo.org/records/22903449/files/ukm579.s02.txt.gz
 
 **hg38.trf-b7-b7-p500.uniqmers.tsv**
 
-The catalog `trcall allele` reads, made by `trcall prep-catalog` from a genome-wide tandem repeat catalog.
+The catalog `trumut allele` reads, made by `trumut prep-catalog` from a genome-wide tandem repeat catalog.
 
 | Column | Description |
 | --- | --- |
@@ -34,7 +34,7 @@ The catalog `trcall allele` reads, made by `trcall prep-catalog` from a genome-w
 
 **HPRC.pon.09012026.tsv**
 
-The panel `trcall use-pon` compares against, made by `trcall build-pon` from normal samples. One row per uniqmer pair.
+The panel `trumut use-pon` compares against, made by `trumut build-pon` from normal samples. One row per uniqmer pair.
 
 | Column | Description |
 | --- | --- |
@@ -47,13 +47,13 @@ The panel `trcall use-pon` compares against, made by `trcall build-pon` from nor
 
 ## Inputs for building your own catalog
 
-Needed only if you decide to use your own tandem repeat list with `trcall prep-catalog` instead of using the pre-built catalog above.
+Needed only if you decide to use your own tandem repeat list with `trumut prep-catalog` instead of using the pre-built catalog above.
 
 ### GRCh38 uniqmers
 
 **hs38.ukm579.s02.sorted.txt.gz**
 
-Every 31-mer that is conserved and unique in GRCh38 (i.e., uniqmer), with its position. Passed to `trcall prep-catalog -k`
+Every 31-mer that is conserved and unique in GRCh38 (i.e., uniqmer), with its position. Passed to `trumut prep-catalog -k`
 
 | Column | Description |
 | --- | --- |
@@ -66,7 +66,7 @@ Every 31-mer that is conserved and unique in GRCh38 (i.e., uniqmer), with its po
 
 **ukm579.s02.txt.gz**
 
-The sequence behind each uniqmer ID. Passed to `trcall prep-catalog -s`.
+The sequence behind each uniqmer ID. Passed to `trumut prep-catalog -s`.
 
 | Column | Description |
 | --- | --- |

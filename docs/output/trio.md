@@ -1,10 +1,10 @@
-# trcall trio
+# trumut trio
 
 ## Output columns
 
 | Column | Present when | Description |
 | --- | --- | --- |
-| `chr`, `region_start`, `region_end`, `kmerA_id`, `kmerB_id`, `loci` |  | copied from the `trcall allele` output |
+| `chr`, `region_start`, `region_end`, `kmerA_id`, `kmerB_id`, `loci` |  | copied from the `trumut allele` output |
 | `allele_length` |  | child allele length that is absent from the parents |
 | `offset` |  | child `allele_length` minus the nearest parent allele length |
 | `n_motif_kmers_ref_median` |  | median number of motif k-mers\* over parent reads at that nearest length |

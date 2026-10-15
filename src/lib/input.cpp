@@ -1,5 +1,5 @@
 /*
-input.cpp: trcall input readers.
+input.cpp: trumut input readers.
 */
 #include "input.h"
 
@@ -327,7 +327,7 @@ static int spawn_fetcher(const char *url, int kind, pid_t *pid_out, std::string 
     argv[n] = 0;
     if (!exec_on_path(argv[0])) {
         if (err) snprintf(err, err_n, "%s is not on PATH, and it is what fetches %s URLs. Install it, "
-                          "pass a presigned https URL, or pipe the file in: %s ... | trcall allele - ...",
+                          "pass a presigned https URL, or pipe the file in: %s ... | trumut allele - ...",
                           argv[0], kind == 1 ? "http/ftp" : kind == 2 ? "s3://" : "gs://",
                           kind == 2 ? "aws s3 cp URL -" : kind == 3 ? "gcloud storage cat URL" : "curl -sSfL URL");
         return -1;
