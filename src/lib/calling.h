@@ -473,6 +473,7 @@ struct RowFilters {
   int32_t min_supporting_reads = 7;
   double  min_motif_diff = 3.0;
   int32_t min_subclone_reads = 4;
+  double  min_subclone_frac = 0.1;
   int32_t min_gap_kmers = 10;
   double  min_gap_frac = 0.95;
   bool keep(bool assembly, int32_t n_reads_in_thres, double motif_test, double motif_ref) const {
@@ -544,7 +545,7 @@ inline std::unordered_map<int32_t,int32_t> pooled_exact_freq(
 inline bool distant_same_phase_cluster(
     const std::unordered_map<int32_t,int32_t>& freq,
     int32_t len, int32_t threshold, int32_t min_reads) {
-  std::vector<std::pair<int32_t,int32_t>> pts;   // (length, phase read count)
+  std::vector<std::pair<int32_t,int32_t>> pts;
   for (const auto& kv : freq)
     if (kv.second > 0) pts.emplace_back(kv.first, kv.second);
   pts.emplace_back(len, 0);
@@ -561,6 +562,49 @@ inline bool distant_same_phase_cluster(
     if (pts[i].first == len) cluster_has_len = true;
   }
   return !cluster_has_len && cluster_reads >= min_reads;
+}
+
+inline bool second_peak_on_phase(
+    const std::unordered_map<int32_t,int32_t>& freq,
+    int32_t len, int32_t threshold, int32_t min_reads) {
+  std::vector<std::pair<int32_t,int32_t>> pts;
+  for (const auto& kv : freq)
+    if (kv.second > 0) pts.emplace_back(kv.first, kv.second);
+  if (pts.empty()) return false;
+  std::sort(pts.begin(), pts.end());
+  const int64_t lo = std::min<int64_t>(pts.front().first, len);
+  const int64_t hi = std::max<int64_t>(pts.back().first, len);
+  std::vector<int32_t> cum((size_t)(hi - lo + 2), 0);
+  for (const auto& p : pts) cum[(size_t)(p.first - lo + 1)] += p.second;
+  for (size_t i = 1; i < cum.size(); ++i) cum[i] += cum[i - 1];
+  auto support = [&](int64_t x) -> int32_t {
+    const int64_t a = std::max<int64_t>(x - threshold, lo);
+    const int64_t b = std::min<int64_t>(x + threshold, hi);
+    if (a > b) return 0;
+    return cum[(size_t)(b - lo + 1)] - cum[(size_t)(a - lo)];
+  };
+  const int32_t s_len = support(len);
+  int32_t peak = len, s_peak = s_len;
+  for (const auto& p : pts) {
+    const int32_t s = support(p.first);
+    if (s > s_peak ||
+        (s == s_peak && std::abs(p.first - len) < std::abs(peak - len))) {
+      s_peak = s;
+      peak = p.first;
+    }
+  }
+  if (std::abs(peak - len) > threshold) return s_peak >= min_reads;
+  for (int dir = -1; dir <= 1; dir += 2) {
+    int32_t valley = s_len;
+    for (int64_t x = len + dir; x >= lo && x <= hi; x += dir) {
+      const int32_t s = support(x);
+      if (s < valley) valley = s;
+      if (std::llabs(x - len) <= threshold || s < min_reads) continue;
+      if (freq.find((int32_t)x) == freq.end()) continue;
+      if (2 * valley <= std::min(s_len, s)) return true;
+    }
+  }
+  return false;
 }
 
 inline bool is_private_length(const std::unordered_map<int32_t,int32_t>& freq,
@@ -633,7 +677,8 @@ inline const char* event_type_for_length(
     const std::unordered_map<int32_t,HpCounts>& test_hp_freq,
     int32_t len, int32_t threshold,
     const LengthPredicate& is_deviating = {},
-    int32_t min_subclone_reads = 4)
+    int32_t min_subclone_reads = 4,
+    double min_subclone_frac = 0.1)
 {
   const DomPhase cand = dominant_phase_for_length(test_hp_freq, len, threshold);
   {
@@ -662,7 +707,12 @@ inline const char* event_type_for_length(
     if (!window_mode(freq, len, threshold, mode, is_deviating)) continue;
     if (is_private_length(freq, mode, threshold)) continue;
     any_peak = true;
-    if (distant_same_phase_cluster(freq, mode, threshold, min_subclone_reads))
+    int32_t hap_reads = 0;
+    for (const auto& kv : freq) hap_reads += kv.second;
+    const int32_t min_reads = std::max<int32_t>(
+        min_subclone_reads, (int32_t)std::ceil(min_subclone_frac * hap_reads));
+    if (distant_same_phase_cluster(freq, mode, threshold, min_reads) ||
+        second_peak_on_phase(freq, mode, threshold, min_reads))
       return "subclonal";
   }
   return any_peak ? "clonal" : "private_phased";
@@ -726,7 +776,7 @@ inline void write_alleles_for_group(
           ? "clonal"
           : event_type_for_length(g.test_hp_freq, d, n_reads_thres,
                 [&](int32_t L) { return nearest_diff_to_set(L, g.ref_distances) >= min_offset; },
-                filters.min_subclone_reads);
+                filters.min_subclone_reads, filters.min_subclone_frac);
 
       const int32_t num_exact_val  = exact_read_count(g.test_freq, d);
       const int32_t num_nearby_val = nearby_read_count(g.test_freq, d, n_reads_thres);

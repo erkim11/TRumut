@@ -26,5 +26,6 @@ trumut use-pon [sample.tsv] [pon.tsv] [output.tsv] --input-type assembly --ploid
 | `--min-supporting-reads N` | 7 | report an allele only if it has at least N supporting reads |
 | `--min-motif-diff X` | 3 | report an allele only if its median motif k-mer count differs from the panel's by **more than** X |
 | `--mega-events` | off | report large events only. Sets `--min-offset` 100, `--min-supporting-reads` -1 unless given explicitly (`--min-motif-diff` stays 3) |
-| `--min-subclone-reads N` | 4 | call a tumor allele `subclonal` only if another allele on the same haplotype has at least N reads |
+| `--min-subclone-reads N` | 4 | call an allele `subclonal` only if another allele or density peak on the same haplotype has at least N reads |
+| `--min-subclone-frac F` | 0.1 | that other allele or density peak must also hold at least this fraction of the haplotype's reads |
 | `--min-reads-per-sample N` | 10; for assemblies, set by `--ploidy` | skip a locus unless the sample has at least N reads / contigs there |

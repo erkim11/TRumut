@@ -29,7 +29,8 @@ static void cancer_usage(std::ostream& os, const char* prog) {
     "  --min-supporting-reads N  report a tumor allele only if it has at least N supporting reads [7]\n"
     "  --min-motif-diff X        report a tumor allele only if its median motif k-mer count differs from the normal's by more than X [3]\n"
     "  --mega-events             report large events only: sets --min-offset 100, --min-supporting-reads -1 unless given explicitly (--min-motif-diff stays 3)\n"
-    "  --min-subclone-reads N    call an allele subclonal only if another allele on the same haplotype has at least N reads [4]\n"
+    "  --min-subclone-reads N    call an allele subclonal only if another allele or density peak on the same haplotype has at least N reads [4]\n"
+    "  --min-subclone-frac F     that other allele or density peak must also hold at least this fraction of the haplotype's reads [0.1]\n"
     "  --min-gap-kmers N         count a non-motif gap toward n_nonmotif_kmers_in only if it holds at least N k-mers [10]\n"
     "  --min-gap-frac F          count a non-motif gap only if at least this fraction of its k-mers exceed the reference [0.95]\n"
     "  --min-reads-per-sample N  skip a locus unless tumor and normal each have at least N reads / contigs there [10; for assemblies, set by --ploidy]\n"
@@ -39,6 +40,13 @@ static void cancer_usage(std::ostream& os, const char* prog) {
 }
 
 int cancer_main(int argc, char** argv) {
+  for (int i = 1; i < argc; ++i) {
+    const std::string arg = argv[i];
+    if (arg == "-h" || arg == "--help") {
+      cancer_usage(std::cout, argv[0]);
+      return 0;
+    }
+  }
   if (argc < 4) {
     cancer_usage(std::cerr, argv[0]);
     return 2;
@@ -95,6 +103,12 @@ int cancer_main(int argc, char** argv) {
       if (!parse_int_arg(arg.c_str(), argv[++i], filters.min_subclone_reads)) return 2;
       if (filters.min_subclone_reads < 0) {
         std::cerr << "[ERROR] --min-subclone-reads must be a non-negative integer\n";
+        return 2;
+      }
+    } else if (arg == "--min-subclone-frac" && i + 1 < argc) {
+      if (!parse_double_arg(arg.c_str(), argv[++i], filters.min_subclone_frac)) return 2;
+      if (filters.min_subclone_frac < 0.0 || filters.min_subclone_frac > 1.0) {
+        std::cerr << "[ERROR] --min-subclone-frac must be between 0 and 1\n";
         return 2;
       }
     } else if (arg == "--min-gap-kmers" && i + 1 < argc) {

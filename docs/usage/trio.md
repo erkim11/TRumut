@@ -28,6 +28,7 @@ trumut trio [child.tsv] [parent1.tsv] [parent2.tsv ...] [output.tsv] --input-typ
 | `--min-motif-diff X` | 3 | report a child allele only if its median motif k-mer count differs from the parent's by **more than** X |
 | `--mega-events` | off | report large events only. Sets `--min-offset` 100, `--min-supporting-reads` -1 unless given explicitly (`--min-motif-diff` stays 3) |
 | `--min-reads-per-sample N` | 10; for assemblies, set by `--ploidy` | skip a locus unless child and parents each have at least N reads / contigs there |
-| `--min-subclone-reads N` | 4 | call a tumor allele `subclonal` only if another allele on the same haplotype has at least N reads |
+| `--min-subclone-reads N` | 4 | call a child allele `subclonal` only if another allele or density peak on the same haplotype has at least N reads |
+| `--min-subclone-frac F` | 0.1 | that other allele or density peak must also hold at least this fraction of the haplotype's reads |
 | `--min-gap-kmers N` | 10 | count a non-motif insertion toward `n_nonmotif_kmers_in` column value only if it holds at least N k-mers |
 | `--min-gap-frac F` | 0.95 | count a non-motif gap only if at least this fraction of its k-mers are newly inserted |
