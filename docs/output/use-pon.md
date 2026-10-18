@@ -11,7 +11,7 @@
 | `n_motif_kmers_test_median` |  | median number of motif k-mers\* over sample reads at `allele_length` |
 | `n_reads` | reads input only | number of sample reads at exactly `allele_length` |
 | `n_reads_in_thres` | reads input only | number of sample reads supporting the `allele_length` (within `--n-reads-thres` of `allele_length`) |
-| `event_type` |  | clonality of the mutation event. `clonal`, `subclonal`, or `private_phased` if the window has haplotagged reads. Otherwise `private_unphased` or `not_private_unphased`. Always `clonal` for assemblies |
+| `event_type` |  | clonality of the mutation event. `clonal`, `subclonal`, or `private_phased` if the locus is sufficiently haplotagged (`--min-tagged-frac`, `--min-tagged-reads`). Otherwise `private_unphased` or `not_private_unphased`. Always `clonal` for assemblies |
 | `phase_counts` | `HP` column in the test input | `HP=1:HP=2:untagged` counts among reads that support `allele_length` |
 
 <p class="table-note">* An approximate measure of how much of the allele is made of the repeat motif.</p>
@@ -19,7 +19,7 @@
 Columns with an empty "Present when" cell are always written.
 
 !!! warning "event_type without haplotags"
-    Without haplotagged reads, `clonal` and `subclonal` cannot be told apart and are both reported as `not_private_unphased`. `private_unphased` is likewise less reliable than `private_phased`.
+    Without enough haplotagged reads (see `--min-tagged-frac` and `--min-tagged-reads`), `clonal` and `subclonal` cannot be told apart and are both reported as `not_private_unphased`. `private_unphased` is likewise less reliable than `private_phased`.
     
 ## Example output
 

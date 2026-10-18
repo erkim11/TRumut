@@ -28,4 +28,6 @@ trumut use-pon [sample.tsv] [pon.tsv] [output.tsv] --input-type assembly --ploid
 | `--mega-events` | off | report large events only. Sets `--min-offset` 100, `--min-supporting-reads` -1 unless given explicitly (`--min-motif-diff` stays 3) |
 | `--min-subclone-reads N` | 4 | call an allele `subclonal` only if another allele or density peak on the same haplotype has at least N reads |
 | `--min-subclone-frac F` | 0.1 | that other allele or density peak must also hold at least this fraction of the haplotype's reads |
+| `--min-tagged-frac F` | 0.5 | use haplotype-aware event types only if at least this fraction of the locus's reads carry an HP tag |
+| `--min-tagged-reads N` | 2 | use haplotype-aware event types only if at least N HP-tagged reads support the allele |
 | `--min-reads-per-sample N` | 10; for assemblies, set by `--ploidy` | skip a locus unless the sample has at least N reads / contigs there |

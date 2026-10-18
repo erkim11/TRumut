@@ -474,6 +474,8 @@ struct RowFilters {
   double  min_motif_diff = 3.0;
   int32_t min_subclone_reads = 4;
   double  min_subclone_frac = 0.1;
+  double  min_tagged_frac = 0.5;
+  int32_t min_tagged_reads = 2;
   int32_t min_gap_kmers = 10;
   double  min_gap_frac = 0.95;
   bool keep(bool assembly, int32_t n_reads_in_thres, double motif_test, double motif_ref) const {
@@ -670,17 +672,36 @@ inline bool window_mode(const std::unordered_map<int32_t,int32_t>& freq,
 inline void warn_unphased_once() {
   static std::atomic<bool> warned{false};
   if (warned.exchange(true)) return;
-  std::cerr << "[WARNING] some loci have no HP-tagged read in the window; their event_type is phase-free (private_unphased / not_private_unphased)\n";
+  std::cerr << "[WARNING] some loci have too few HP-tagged reads in the window or at the locus; their event_type is phase-free (private_unphased / not_private_unphased)\n";
+}
+
+inline bool locus_sufficiently_tagged(
+    const std::unordered_map<int32_t,HpCounts>& test_hp_freq,
+    int32_t len, int32_t threshold,
+    double min_tagged_frac, int32_t min_tagged_reads) {
+  int64_t tagged_all = 0, all = 0, tagged_win = 0;
+  for (const auto& kv : test_hp_freq) {
+    const int64_t t = kv.second.hp1 + kv.second.hp2;
+    tagged_all += t;
+    all += t + kv.second.na;
+    if (std::abs(kv.first - len) <= threshold) tagged_win += t;
+  }
+  if (all == 0) return false;
+  if (tagged_win < min_tagged_reads) return false;
+  return (double)tagged_all >= min_tagged_frac * (double)all;
 }
 
 inline const char* event_type_for_length(
     const std::unordered_map<int32_t,HpCounts>& test_hp_freq,
     int32_t len, int32_t threshold,
-    const LengthPredicate& is_deviating = {},
-    int32_t min_subclone_reads = 4,
-    double min_subclone_frac = 0.1)
+    const LengthPredicate& is_deviating,
+    const RowFilters& filters)
 {
-  const DomPhase cand = dominant_phase_for_length(test_hp_freq, len, threshold);
+  DomPhase cand = dominant_phase_for_length(test_hp_freq, len, threshold);
+  if (cand != DomPhase::None &&
+      !locus_sufficiently_tagged(test_hp_freq, len, threshold,
+                                 filters.min_tagged_frac, filters.min_tagged_reads))
+    cand = DomPhase::None;
   {
     auto it = test_hp_freq.find(len);
     if (it != test_hp_freq.end() &&
@@ -710,7 +731,8 @@ inline const char* event_type_for_length(
     int32_t hap_reads = 0;
     for (const auto& kv : freq) hap_reads += kv.second;
     const int32_t min_reads = std::max<int32_t>(
-        min_subclone_reads, (int32_t)std::ceil(min_subclone_frac * hap_reads));
+        filters.min_subclone_reads,
+        (int32_t)std::ceil(filters.min_subclone_frac * hap_reads));
     if (distant_same_phase_cluster(freq, mode, threshold, min_reads) ||
         second_peak_on_phase(freq, mode, threshold, min_reads))
       return "subclonal";
@@ -776,7 +798,7 @@ inline void write_alleles_for_group(
           ? "clonal"
           : event_type_for_length(g.test_hp_freq, d, n_reads_thres,
                 [&](int32_t L) { return nearest_diff_to_set(L, g.ref_distances) >= min_offset; },
-                filters.min_subclone_reads, filters.min_subclone_frac);
+                filters);
 
       const int32_t num_exact_val  = exact_read_count(g.test_freq, d);
       const int32_t num_nearby_val = nearby_read_count(g.test_freq, d, n_reads_thres);

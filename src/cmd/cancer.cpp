@@ -31,6 +31,8 @@ static void cancer_usage(std::ostream& os, const char* prog) {
     "  --mega-events             report large events only: sets --min-offset 100, --min-supporting-reads -1 unless given explicitly (--min-motif-diff stays 3)\n"
     "  --min-subclone-reads N    call an allele subclonal only if another allele or density peak on the same haplotype has at least N reads [4]\n"
     "  --min-subclone-frac F     that other allele or density peak must also hold at least this fraction of the haplotype's reads [0.1]\n"
+    "  --min-tagged-frac F       use haplotype-aware event types only if at least this fraction of the locus's reads carry an HP tag [0.5]\n"
+    "  --min-tagged-reads N      use haplotype-aware event types only if at least N HP-tagged reads support the allele [2]\n"
     "  --min-gap-kmers N         count a non-motif gap toward n_nonmotif_kmers_in only if it holds at least N k-mers [10]\n"
     "  --min-gap-frac F          count a non-motif gap only if at least this fraction of its k-mers exceed the reference [0.95]\n"
     "  --min-reads-per-sample N  skip a locus unless tumor and normal each have at least N reads / contigs there [10; for assemblies, set by --ploidy]\n"
@@ -109,6 +111,18 @@ int cancer_main(int argc, char** argv) {
       if (!parse_double_arg(arg.c_str(), argv[++i], filters.min_subclone_frac)) return 2;
       if (filters.min_subclone_frac < 0.0 || filters.min_subclone_frac > 1.0) {
         std::cerr << "[ERROR] --min-subclone-frac must be between 0 and 1\n";
+        return 2;
+      }
+    } else if (arg == "--min-tagged-frac" && i + 1 < argc) {
+      if (!parse_double_arg(arg.c_str(), argv[++i], filters.min_tagged_frac)) return 2;
+      if (filters.min_tagged_frac < 0.0 || filters.min_tagged_frac > 1.0) {
+        std::cerr << "[ERROR] --min-tagged-frac must be between 0 and 1\n";
+        return 2;
+      }
+    } else if (arg == "--min-tagged-reads" && i + 1 < argc) {
+      if (!parse_int_arg(arg.c_str(), argv[++i], filters.min_tagged_reads)) return 2;
+      if (filters.min_tagged_reads < 0) {
+        std::cerr << "[ERROR] --min-tagged-reads must be a non-negative integer\n";
         return 2;
       }
     } else if (arg == "--min-gap-kmers" && i + 1 < argc) {

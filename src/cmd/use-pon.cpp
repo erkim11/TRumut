@@ -189,7 +189,7 @@ static void write_mosaic_rows(
         ? "clonal"
         : event_type_for_length(g.test_hp_freq, d, n_reads_thres,
               [&](int32_t L) { return g.pon_by_dist.count(L) > 0; },
-              filters.min_subclone_reads, filters.min_subclone_frac);
+              filters);
 
     double tumor_motif_v = std::numeric_limits<double>::quiet_NaN();
     if (auto it = g.motif_by_len.find(d); it != g.motif_by_len.end()) {
@@ -343,6 +343,8 @@ static void use_pon_usage(std::ostream& os) {
     "  --mega-events             report large events only: sets --min-offset 100, --min-supporting-reads -1 unless given explicitly (--min-motif-diff stays 3)\n"
     "  --min-subclone-reads N    call an allele subclonal only if another allele or density peak on the same haplotype has at least N reads [4]\n"
     "  --min-subclone-frac F     that other allele or density peak must also hold at least this fraction of the haplotype's reads [0.1]\n"
+    "  --min-tagged-frac F       use haplotype-aware event types only if at least this fraction of the locus's reads carry an HP tag [0.5]\n"
+    "  --min-tagged-reads N      use haplotype-aware event types only if at least N HP-tagged reads support the allele [2]\n"
     "  --min-reads-per-sample N  skip a locus unless the sample has at least N reads / contigs there [10; for assemblies, set by --ploidy]\n"
     "  -h, --help                show this message\n"
     "\n"
@@ -378,6 +380,8 @@ int use_pon_main(int argc, char* argv[]) {
     { (char*)"mega-events",      ko_no_argument,       308 },
     { (char*)"min-subclone-reads", ko_required_argument, 310 },
     { (char*)"min-subclone-frac", ko_required_argument, 311 },
+    { (char*)"min-tagged-frac", ko_required_argument, 312 },
+    { (char*)"min-tagged-reads", ko_required_argument, 313 },
     { (char*)"help",             ko_no_argument,       'h' },
     { 0, 0, 0 }
   };
@@ -422,6 +426,14 @@ int use_pon_main(int argc, char* argv[]) {
     else if (c == 311) {
       if (!parse_double_arg("--min-subclone-frac", k.arg, filters.min_subclone_frac)) return 1;
       if (filters.min_subclone_frac < 0.0 || filters.min_subclone_frac > 1.0) { std::cerr << "[ERROR] --min-subclone-frac must be between 0 and 1\n"; return 1; }
+    }
+    else if (c == 312) {
+      if (!parse_double_arg("--min-tagged-frac", k.arg, filters.min_tagged_frac)) return 1;
+      if (filters.min_tagged_frac < 0.0 || filters.min_tagged_frac > 1.0) { std::cerr << "[ERROR] --min-tagged-frac must be between 0 and 1\n"; return 1; }
+    }
+    else if (c == 313) {
+      if (!parse_int_arg("--min-tagged-reads", k.arg, filters.min_tagged_reads)) return 1;
+      if (filters.min_tagged_reads < 0) { std::cerr << "[ERROR] --min-tagged-reads must be a non-negative integer\n"; return 1; }
     }
     else if (c == 'h') { use_pon_usage(std::cout); return 0; }
     else if (c == '?') { std::cerr << "[ERROR] unknown option\n"; use_pon_usage(std::cerr); return 1; }

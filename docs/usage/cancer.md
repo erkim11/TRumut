@@ -30,5 +30,7 @@ trumut cancer [tumor.tsv] [normal.tsv] [output.tsv] --input-type assembly --ploi
 | `--min-reads-per-sample N` | 10; for assemblies, set by `--ploidy` | skip a locus unless tumor and normal each have at least N reads / contigs there |
 | `--min-subclone-reads N` | 4 | call a tumor allele `subclonal` only if another allele or density peak on the same haplotype has at least N reads |
 | `--min-subclone-frac F` | 0.1 | that other allele or density peak must also hold at least this fraction of the haplotype's reads |
+| `--min-tagged-frac F` | 0.5 | use haplotype-aware event types only if at least this fraction of the locus's reads carry an HP tag |
+| `--min-tagged-reads N` | 2 | use haplotype-aware event types only if at least N HP-tagged reads support the allele |
 | `--min-gap-kmers N` | 10 | count a non-motif insertion toward `n_nonmotif_kmers_in` column value only if it holds at least N k-mers |
 | `--min-gap-frac F` | 0.95 | count a non-motif gap only if at least this fraction of its k-mers are newly inserted |
