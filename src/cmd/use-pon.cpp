@@ -173,6 +173,8 @@ static void write_mosaic_rows(
     bool with_phase,
     bool assembly)
 {
+  const LengthPredicate is_deviating =
+      [&](int32_t L) { return g.pon_by_dist.count(L) > 0; };
   for (int32_t d : deviating) {
     auto pl_it = g.pon_by_dist.find(d);
     const PonLookup* pl = (pl_it != g.pon_by_dist.end()) ? &pl_it->second : nullptr;
@@ -182,14 +184,12 @@ static void write_mosaic_rows(
     if (pl && !std::isnan(pl->normal_motif)) normal_motif = format_double(pl->normal_motif);
 
     const int32_t num_exact  = exact_read_count(g.test_freq, d);
-    const int32_t num_nearby = nearby_read_count(g.test_freq, d, n_reads_thres);
+    const int32_t num_nearby = nearby_read_count(g.test_freq, d, n_reads_thres, is_deviating);
     const std::string phase = with_phase
         ? phase_counts_for_length(g.test_hp_freq, d, n_reads_thres) : std::string();
     const char* event_type = assembly
         ? "clonal"
-        : event_type_for_length(g.test_hp_freq, d, n_reads_thres,
-              [&](int32_t L) { return g.pon_by_dist.count(L) > 0; },
-              filters);
+        : event_type_for_length(g.test_hp_freq, d, n_reads_thres, is_deviating, filters);
 
     double tumor_motif_v = std::numeric_limits<double>::quiet_NaN();
     if (auto it = g.motif_by_len.find(d); it != g.motif_by_len.end()) {

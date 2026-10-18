@@ -506,11 +506,16 @@ inline int32_t exact_read_count(const std::unordered_map<int32_t,int32_t>& test_
 }
 
 // number of test reads in the group whose length is within `threshold` of `len` (inclusive)
+using LengthPredicate = std::function<bool(int32_t)>;
+
 inline int32_t nearby_read_count(const std::unordered_map<int32_t,int32_t>& test_freq,
-                                 int32_t len, int32_t threshold) {
+                                 int32_t len, int32_t threshold,
+                                 const LengthPredicate& eligible = {}) {
   int32_t n = 0;
   for (const auto& kv : test_freq) {
-    if (std::abs(kv.first - len) <= threshold) n += kv.second;
+    if (std::abs(kv.first - len) > threshold) continue;
+    if (eligible && !eligible(kv.first)) continue;
+    n += kv.second;
   }
   return n;
 }
@@ -648,8 +653,6 @@ inline void add_untagged_in_window(
     if (kv.second.na > 0 && std::abs(kv.first - len) <= threshold)
       freq[kv.first] += kv.second.na;
 }
-
-using LengthPredicate = std::function<bool(int32_t)>;
 
 inline bool window_mode(const std::unordered_map<int32_t,int32_t>& freq,
                         int32_t len, int32_t threshold, int32_t& mode,
@@ -792,16 +795,16 @@ inline void write_alleles_for_group(
   const bool with_phase = (read_ci.hp >= 0);
 
   {
+    const LengthPredicate is_deviating =
+        [&](int32_t L) { return nearest_diff_to_set(L, g.ref_distances) >= min_offset; };
     for (int32_t d : deviating) {
       int32_t offset_val = signed_nearest_diff_to_set(d, g.ref_distances);
       const char* event_type = assembly
           ? "clonal"
-          : event_type_for_length(g.test_hp_freq, d, n_reads_thres,
-                [&](int32_t L) { return nearest_diff_to_set(L, g.ref_distances) >= min_offset; },
-                filters);
+          : event_type_for_length(g.test_hp_freq, d, n_reads_thres, is_deviating, filters);
 
       const int32_t num_exact_val  = exact_read_count(g.test_freq, d);
-      const int32_t num_nearby_val = nearby_read_count(g.test_freq, d, n_reads_thres);
+      const int32_t num_nearby_val = nearby_read_count(g.test_freq, d, n_reads_thres, is_deviating);
       const std::string phase = with_phase
           ? phase_counts_for_length(g.test_hp_freq, d, n_reads_thres) : std::string();
 

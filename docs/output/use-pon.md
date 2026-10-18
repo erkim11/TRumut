@@ -10,7 +10,7 @@
 | `n_motif_kmers_ref_median` |  | the panel's `range_min_n_motif_kmers` or `range_max_n_motif_kmers` at that closer bound; `nan` when the panel value is `NA` |
 | `n_motif_kmers_test_median` |  | median number of motif k-mers\* over sample reads at `allele_length` |
 | `n_reads` | reads input only | number of sample reads at exactly `allele_length` |
-| `n_reads_in_thres` | reads input only | number of sample reads supporting the `allele_length` (within `--n-reads-thres` of `allele_length`) |
+| `n_reads_in_thres` | reads input only | number of sample reads supporting the `allele_length` (within `--n-reads-thres` of `allele_length` and outside the panel range by at least `--min-offset`) |
 | `event_type` |  | clonality of the mutation event. `clonal`, `subclonal`, or `private_phased` if the locus is sufficiently haplotagged (`--min-tagged-frac`, `--min-tagged-reads`). Otherwise `private_unphased` or `not_private_unphased`. Always `clonal` for assemblies |
 | `phase_counts` | `HP` column in the test input | `HP=1:HP=2:untagged` counts among reads that support `allele_length` |
 

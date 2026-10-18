@@ -11,7 +11,7 @@
 | `n_motif_kmers_test_median` |  | median number of motif k-mers\* over child reads at `allele_length` |
 | `n_nonmotif_kmers_in` | `--save-allele-seq` in both inputs | number of non-motif k-mers (i.e., non-repetitive sequences) inserted within the repeat |
 | `n_reads` | reads input only | number of child reads at exactly `allele_length` |
-| `n_reads_in_thres` | reads input only | number of child reads supporting the `allele_length` (within `--n-reads-thres` of `allele_length`) |
+| `n_reads_in_thres` | reads input only | number of child reads supporting the `allele_length` (within `--n-reads-thres` of `allele_length` and at least `--min-offset` from every parent length) |
 | `event_type` |  | clonality of the mutation event. `clonal`, `subclonal`, or `private_phased` if the locus is sufficiently haplotagged (`--min-tagged-frac`, `--min-tagged-reads`). Otherwise `private_unphased` or `not_private_unphased`. Always `clonal` for assemblies |
 | `phase_counts` | `HP` column in the test input | `HP=1:HP=2:untagged` counts among reads that support `allele_length` |
 
