@@ -21,7 +21,7 @@ trumut cancer [tumor.tsv] [normal.tsv] [output.tsv] --input-type assembly --ploi
 | --- | --- | --- |
 | `-t chr1` | all chromosomes | process specified chromosome only, spelled as in the `trumut allele` output |
 | `-j N` | 3 | chromosomes processed in parallel |
-| `--clustering-thres N` | 9 | allele lengths within N bp of each other collapse into one reported allele |
+| `--clustering-thres N` | 7 | allele lengths within N bp of each other collapse into one reported allele |
 | `--n-reads-thres N` | 9 | a read supports an allele if its length is within N bp of it |
 | `--min-offset N` | clustering width + 1 | report a tumor allele only if it is at least N bp from every normal allele |
 | `--min-supporting-reads N` | 7 | report a tumor allele only if it has at least N supporting reads |
