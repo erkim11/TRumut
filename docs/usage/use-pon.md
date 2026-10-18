@@ -20,7 +20,7 @@ trumut use-pon [sample.tsv] [pon.tsv] [output.tsv] --input-type assembly --ploid
 | Argument | Default | Description |
 | --- | --- | --- |
 | `-t chr1` | all chromosomes | process specified chromosome only, spelled as in the `trumut allele` output |
-| `--clustering-thres N` | 11 | allele lengths within N bp of each other collapse into one reported allele |
+| `--clustering-thres N` | 9 | allele lengths within N bp of each other collapse into one reported allele |
 | `--n-reads-thres N` | 9 | a read supports an allele if its length is within N bp of it |
 | `--min-offset N` | clustering width + 1 | report an allele only if it is at least N bp from the panel range |
 | `--min-supporting-reads N` | 7 | report an allele only if it has at least N supporting reads |

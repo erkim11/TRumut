@@ -23,7 +23,7 @@ static void cancer_usage(std::ostream& os, const char* prog) {
     "Options:\n"
     "  -t chr1                   process specified chromosome only, spelled as in the trumut allele output [all]\n"
     "  -j N                      chromosomes processed in parallel [3]\n"
-    "  --clustering-thres N      allele lengths within N bp of each other collapse into one reported allele [11]\n"
+    "  --clustering-thres N      allele lengths within N bp of each other collapse into one reported allele [9]\n"
     "  --n-reads-thres N         a read supports an allele if its length is within N bp of it [9]\n"
     "  --min-offset N            report a tumor allele only if it is at least N bp from every normal allele [clustering width + 1]\n"
     "  --min-supporting-reads N  report a tumor allele only if it has at least N supporting reads [7]\n"
@@ -58,7 +58,7 @@ int cancer_main(int argc, char** argv) {
   const std::string out_path    = argv[3];
 
   std::string target_chr;        // empty means all chromosomes, in parallel
-  int32_t fixed_clustering_thres = -1;  // -1 means use the default (11)
+  int32_t fixed_clustering_thres = -1;  // -1 means use the default (9)
   int32_t fixed_n_reads_thres = -1;     // -1 means use the default (9)
   int32_t fixed_min_offset = -1;        // -1 means use the clustering width
   int input_type = 0;   // --input-type: 1 reads, -1 assembly; required

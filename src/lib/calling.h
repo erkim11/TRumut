@@ -1099,7 +1099,7 @@ inline int run_deviation_calling_one_chr(
     return true;
   };
 
-  const int32_t clustering_thres = fixed_clustering_thres >= 0 ? fixed_clustering_thres : 11;
+  const int32_t clustering_thres = fixed_clustering_thres >= 0 ? fixed_clustering_thres : 9;
   const int32_t n_reads_thres = fixed_n_reads_thres >= 0 ? fixed_n_reads_thres : 9;
   const int32_t min_offset = fixed_min_offset >= 0 ? fixed_min_offset : clustering_thres + 1;
 

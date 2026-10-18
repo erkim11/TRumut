@@ -21,7 +21,7 @@ trumut trio [child.tsv] [parent1.tsv] [parent2.tsv ...] [output.tsv] --input-typ
 | --- | --- | --- |
 | `-t chr1` | all chromosomes | process specified chromosome only, spelled as in the `trumut allele` output |
 | `-j N` | 3 | chromosomes processed in parallel |
-| `--clustering-thres N` | 11 | allele lengths within N bp of each other collapse into one reported allele |
+| `--clustering-thres N` | 9 | allele lengths within N bp of each other collapse into one reported allele |
 | `--n-reads-thres N` | 9 | a read supports an allele if its length is within N bp of it |
 | `--min-offset N` | clustering width + 1 | report a child allele only if it is at least N bp from every parent allele |
 | `--min-supporting-reads N` | 7 | report a child allele only if it has at least N supporting reads |

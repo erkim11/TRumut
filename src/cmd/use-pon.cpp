@@ -335,7 +335,7 @@ static void use_pon_usage(std::ostream& os) {
     "\n"
     "Options:\n"
     "  -t, --target STR          process specified chromosome only, spelled as in the trumut allele output [all]\n"
-    "  --clustering-thres N      allele lengths within N bp of each other collapse into one reported allele [11]\n"
+    "  --clustering-thres N      allele lengths within N bp of each other collapse into one reported allele [9]\n"
     "  --n-reads-thres N         a read supports an allele if its length is within N bp of it [9]\n"
     "  --min-offset N            report an allele only if it is at least N bp from the panel range [clustering width + 1]\n"
     "  --min-supporting-reads N  report an allele only if it has at least N supporting reads [7]\n"
@@ -356,7 +356,7 @@ int use_pon_main(int argc, char* argv[]) {
   const char* pon_path    = nullptr;
   const char* output_path = nullptr;
   const char* target_chr  = nullptr;
-  int32_t clustering_thres = 11;
+  int32_t clustering_thres = 9;
   int32_t n_reads_thres = -1;  // -1: default to 9
   int32_t min_offset = -1;     // -1: default to clustering_thres
   size_t min_reads = 10;
