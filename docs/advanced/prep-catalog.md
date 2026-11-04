@@ -21,6 +21,15 @@ trumut prep-catalog -i [tr_catalog.tsv] -k [uniqmers.tsv.gz] -s [uniqmer_seqs.ts
 | `-j N` | 3 | chromosomes processed in parallel |
 | `--max-repeat-span N` | 15000 | drop catalog rows whose repeat spans more than N bp |
 
+## Input catalog
+
+| Column | Description |
+| --- | --- |
+| `chr` | chromosome. `1` and `chr1` are treated alike |
+| `tr_start` | repeat start (0-based) |
+| `tr_end` | repeat end |
+| `tr_motif` | repeat motif, or several separated by commas (e.g. `TAACCC,AACCCC`). A, C, G, T only |
+
 ## Output columns
 
 | Column | Present when | Description |
