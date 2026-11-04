@@ -4,6 +4,7 @@ prep-catalog.cpp -- `trumut prep-catalog`: builds a uniqmer catalog for trumut a
 
 #include <algorithm>
 #include <atomic>
+#include <cctype>
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
@@ -218,6 +219,24 @@ bool parse_i64(std::string_view sv, int64_t& out) {
   return true;
 }
 
+bool normalize_motifs(std::string_view cell, std::string& out) {
+  out.clear();
+  size_t pos = 0;
+  while (true) {
+    size_t comma = cell.find(',', pos);
+    std::string_view piece = cell.substr(pos, comma == std::string_view::npos ? std::string_view::npos : comma - pos);
+    while (!piece.empty() && std::isspace((unsigned char)piece.front())) piece.remove_prefix(1);
+    while (!piece.empty() && std::isspace((unsigned char)piece.back())) piece.remove_suffix(1);
+    if (piece.empty()) return false;
+    for (char c : piece)
+      if (!std::strchr("ACGTacgt", c)) return false;
+    if (pos) out += ',';
+    out.append(piece);
+    if (comma == std::string_view::npos) return true;
+    pos = comma + 1;
+  }
+}
+
 bool is_gzip(const std::string& path) {
   std::FILE* f = std::fopen(path.c_str(), "rb");
   if (!f) throw std::runtime_error("cannot open: " + path);
@@ -312,7 +331,7 @@ Catalog load_catalog(const std::string& path, const std::string& target, int64_t
   Catalog cat;
   std::vector<ChrBlock>& blocks = cat.blocks;
   std::unordered_set<std::string> closed;
-  std::string line;
+  std::string line, motifs;
   std::vector<std::string_view> f;
   uint64_t line_no = 0;
   const std::string_view target_norm = norm_chr(target);
@@ -321,7 +340,7 @@ Catalog load_catalog(const std::string& path, const std::string& target, int64_t
   if (line.empty()) throw std::runtime_error(path + ": empty file");
   cat.header = line;
   const auto cols = resolve_columns(cat.header, {"chr", "tr_start", "tr_end", "tr_motif"}, path);
-  const int c_chr = cols[0], c_start = cols[1], c_end = cols[2];
+  const int c_chr = cols[0], c_start = cols[1], c_end = cols[2], c_motif = cols[3];
   split_tabs(cat.header, f);
   cat.n_cols = (int)f.size();
   {
@@ -346,6 +365,18 @@ Catalog load_catalog(const std::string& path, const std::string& target, int64_t
     if (!parse_i64(f[c_start], start) || !parse_i64(f[c_end], end))
       throw std::runtime_error(path + ": line " + std::to_string(line_no) +
                                ": tr_start and tr_end must be integers");
+    if (!normalize_motifs(f[c_motif], motifs))
+      throw std::runtime_error(path + ": line " + std::to_string(line_no) +
+                               ": tr_motif must be one or more comma-separated ACGT motifs");
+    if (motifs != f[c_motif]) {
+      std::string fixed;
+      for (size_t i = 0; i < f.size(); i++) {
+        if (i) fixed += '\t';
+        fixed.append(i == (size_t)c_motif ? std::string_view(motifs) : f[i]);
+      }
+      line = std::move(fixed);
+      split_tabs(line, f);
+    }
     if (end - start > max_span) continue;
     if (!target.empty() && norm_chr(f[c_chr]) != target_norm) continue;
 

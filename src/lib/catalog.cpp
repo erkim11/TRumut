@@ -417,14 +417,14 @@ int read_pairs_file(const char *pairs_path, const char *chr_filter,
 
         int64_t str_start = strtoll(fields[col[C_START]], 0, 10);
         int64_t str_end   = strtoll(fields[col[C_END]], 0, 10);
-        char *locus = make_locus_token(fields[col[C_START]], fields[col[C_END]], fields[col[C_MOTIF]]);
 
         uint64_t pkey = ((uint64_t)(uint32_t)t1 << 32) | (uint32_t)t2;
         int absent;
         khint_t it = key2i_put(pair_index, pkey, &absent);
+        pair_t *p;
         if (absent) {
             if (*n_pairs == *m_pairs) kom_grow(pair_t, *pairs, *n_pairs, *m_pairs);
-            pair_t *p = &(*pairs)[*n_pairs];
+            p = &(*pairs)[*n_pairs];
             p->tok1 = t1;
             p->tok2 = t2;
             p->pos1 = pos1;
@@ -436,16 +436,22 @@ int read_pairs_file(const char *pairs_path, const char *chr_filter,
             p->loci = 0;
             p->motif_kmers = 0;
             p->acc[0] = p->acc[1] = 0;
-            pair_add_locus(p, locus);
             kh_val(pair_index, it) = *n_pairs;
             ++(*n_pairs);
         } else {
-            pair_t *p = &(*pairs)[kh_val(pair_index, it)];
+            p = &(*pairs)[kh_val(pair_index, it)];
             if (str_start < p->region_start) p->region_start = str_start;
             if (str_end   > p->region_end)   p->region_end   = str_end;
-            pair_add_locus(p, locus);
         }
-        free(locus);
+        for (char *motif = fields[col[C_MOTIF]]; ; ) {
+            char *comma = strchr(motif, ',');
+            if (comma) *comma = 0;
+            char *locus = make_locus_token(fields[col[C_START]], fields[col[C_END]], motif);
+            pair_add_locus(p, locus);
+            free(locus);
+            if (!comma) break;
+            motif = comma + 1;
+        }
 
         free(line);
     }
