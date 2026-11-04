@@ -333,7 +333,7 @@ Catalog load_catalog(const std::string& path, const std::string& target, int64_t
   std::unordered_set<std::string> closed;
   std::string line, motifs;
   std::vector<std::string_view> f;
-  uint64_t line_no = 0;
+  uint64_t line_no = 0, n_bad_motif = 0;
   const std::string_view target_norm = norm_chr(target);
 
   while (rdr.next_line(line)) { line_no++; if (!line.empty()) break; }
@@ -365,9 +365,7 @@ Catalog load_catalog(const std::string& path, const std::string& target, int64_t
     if (!parse_i64(f[c_start], start) || !parse_i64(f[c_end], end))
       throw std::runtime_error(path + ": line " + std::to_string(line_no) +
                                ": tr_start and tr_end must be integers");
-    if (!normalize_motifs(f[c_motif], motifs))
-      throw std::runtime_error(path + ": line " + std::to_string(line_no) +
-                               ": tr_motif must be one or more comma-separated ACGT motifs");
+    if (!normalize_motifs(f[c_motif], motifs)) { n_bad_motif++; continue; }
     if (motifs != f[c_motif]) {
       std::string fixed;
       for (size_t i = 0; i < f.size(); i++) {
@@ -394,6 +392,9 @@ Catalog load_catalog(const std::string& path, const std::string& target, int64_t
     }
     blocks.back().rows.push_back({std::move(line), start, end});
   }
+  if (n_bad_motif)
+    std::fprintf(stderr, "[WARNING] %s: skipped %llu row(s) whose tr_motif is empty or not ACGT\n",
+                 path.c_str(), (unsigned long long)n_bad_motif);
   return cat;
 }
 
