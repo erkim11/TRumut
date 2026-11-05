@@ -26,14 +26,14 @@ trumut allele [assembly.fasta] [catalog.tsv] [output.tsv] --input-type assembly 
 
 ## More options
 
-### Input
+### For input
 
 | Argument | Default | Description |
 | --- | --- | --- |
 | `--input-fmt STR` | sniffed | specify input file format |
 | `-r, --reference FILE` |  | reference FASTA, needed for CRAM |
 
-### Output
+### For output
 
 | Argument | Default | Description |
 | --- | --- | --- |
