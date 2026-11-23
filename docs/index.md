@@ -27,7 +27,3 @@ Usage and output details for these three are under [Advanced info](advanced/prep
 - `trumut build-pon`: builds a panel of normals for `trumut use-pon` from your own samples  
   &emsp;→ ready-made version of the panel available under [Pre-built files](pre-built-files.md)
 - `trumut mutual`: compares two or more samples symmetrically, reporting alleles present in one sample but absent from another. The manuscript uses it to profile HiFi error rates
-
-## Citation
-
-TO-DO: add citation here.
