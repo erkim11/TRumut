@@ -7,7 +7,3 @@ TRumut is an alignment-free tandem repeat mutation caller for long reads.
 - Read the [documentation](https://erkim11.github.io/TRumut/) for installation and usage.
 
 ![TRumut workflow](docs/workflow_dark.svg)
-
-### Citation
-
-TO-DO: add citation here.
