@@ -2,6 +2,7 @@ CXX      ?= g++
 CXXFLAGS ?= -O3 -std=c++17 -Wall
 CPPFLAGS += -Isrc
 LIBS      = -lz
+PREFIX   ?= /usr/local
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
@@ -16,9 +17,13 @@ HDR  = src/lib/catalog.h src/lib/input.h src/lib/calling.h
 all: $(PROG)
 
 $(PROG): $(SRC) $(HDR)
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -pthread -o $@ $(SRC) $(LIBS)
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -pthread -o $@ $(SRC) $(LIBS)
+
+install: $(PROG)
+	install -d $(DESTDIR)$(PREFIX)/bin
+	install -m 755 $(PROG) $(DESTDIR)$(PREFIX)/bin/
 
 clean:
 	rm -f $(PROG)
 
-.PHONY: all clean
+.PHONY: all install clean
