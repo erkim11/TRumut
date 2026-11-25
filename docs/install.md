@@ -4,10 +4,6 @@ TRumut can be installed through Bioconda or built from source.
 
 ## Conda install
 
-<!-- TODO: remove this admonition once the bioconda recipe is merged -->
-!!! warning "Not yet available"
-    The Bioconda package is not published yet. Build from source in the meantime.
-
 ```sh
 conda install -c conda-forge -c bioconda trumut
 ```
